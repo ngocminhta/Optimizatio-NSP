@@ -18,6 +18,7 @@ class ConditionalSumWithBound:
 		self.__minValue__ = 0
 		self.__maxValue__ = 0
 		self.__violations__ = 0
+		self.__variables__ = [x,w,v]
 		for wi in w:
 			self.__maxValue__ += wi
 
@@ -57,7 +58,7 @@ class ConditionalSumWithBound:
 		if self.__value__ > self.__ub__ or self.__value__ < self.__lb__:
 			self.__violations__ = 1
 		else:
-			self.__violations__ = 0;
+			self.__violations__ = 0
 
 	def propagate(self,x):
 		if self.__map__[x] == None:
@@ -91,27 +92,22 @@ class ConditionalSumWithBound:
 		if self.__map__[y] == None:
 			return self.getAssignDelta(x,y.getValue())
 
-		nv = self.__value__
-		k1 = self.__map__[x]
-		k2 = self.__map__[y]
-		if x.getValue() == self.__v__ and y.getValue() == self.__v__:
-			nv = nv
-		elif x.getValue() == self.__v__ and y.getValue() != self.__v__:
-			nv = nv - self.__w__[k1] + self.__w__[k2]
-		elif x.getValue() != self.__v__ and y.getValue() == self.__v__:
-			nv = nv + self.__w__[k1] - self.__w__[k2]
-		else:
-			nv = nv
-		return nv - self.__value__
+		return 0
 
 	def getAssignDelta(self,x,v):
 		if self.__map__[x] == None:
 			return 0
-		if x.getValue() == self.__v__:
+		'''if self.__value__ in range(self.__lb__,self.__ub__+1):
 			newV = 0
-			if self.__v__ == v:
-				newV = 1
-			return newV - self.__violations__
-		return 0
+			return newV + v - self.__violations__
+		else:
+			newV = 1
+			return newV + v - self.__violations__
+		return 0'''
+
+		if self.__x__ == x:
+			return v - self.__violations__
+
+		return 0;
 
 
