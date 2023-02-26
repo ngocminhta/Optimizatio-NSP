@@ -39,7 +39,7 @@ class HillClimbingSearch:
 			#print(' x = ',[x[i].getValue() for i in range(n)])
 			if CS.violations() == 0:
 				break
-			if cur + minD != CS.violations():
+			if cur + minD <= CS.violations():
   				print('BUG, cur = ',cur,' delta = ',minD,' CS = ',CS.violations())
   				break
 			cur = CS.violations()

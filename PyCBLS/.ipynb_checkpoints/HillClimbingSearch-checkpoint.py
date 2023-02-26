@@ -9,14 +9,14 @@ class HillClimbingSearch:
 	def __init__(self, constraint):
 		self.__constraint__ = constraint
 		self.__variables__ = constraint.getVariables()
-		
-		
+
+
 	def search(self,maxIter):
 		n = len(self.__variables__)
 		x = self.__variables__
 		CS = self.__constraint__
 		cur = CS.violations()
-		
+
 		for iter in range(maxIter):
 			cand = []
 			minD = 1000000
@@ -39,8 +39,8 @@ class HillClimbingSearch:
 			#print(' x = ',[x[i].getValue() for i in range(n)])
 			if CS.violations() == 0:
 				break
-			if cur + minD > CS.violations():
+			if cur + minD <= CS.violations():
   				print('BUG, cur = ',cur,' delta = ',minD,' CS = ',CS.violations())
   				break
-			cur = CS.violations()	
+			cur = CS.violations()
 		print('Violations = ',CS.violations())
